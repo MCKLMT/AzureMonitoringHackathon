@@ -5,12 +5,12 @@ $rgname=""
 $rg = Get-AzureRmResourceGroup -Name $rgname
 
 #Get Azure Monitor Action Group
-Get-AzureRmResource -ResourceType 'Microsoft.Insights/actiongroups' | Select-Object Name, ResourceId
+(Get-AzureRmResource -ResourceType 'Microsoft.Insights/actiongroups').ResourceId
 
 #Update Path to files as needed
 #Update the parameters file with the names of your VMs and the ResourceId of your Action Group (use command above to find ResourceId)
-$template="GenerateAlertRules.json"
-$para="deployAlertRules.parameters.json"
+$template=".\AlertsTemplate\GenerateAlertRules.json"
+$para=".\AlertsTemplate\deployAlertRules.parameters.json"
 
 $job = 'job.' + ((Get-Date).ToUniversalTime()).tostring("MMddyy.HHmm")
 New-AzureRmResourceGroupDeployment `
